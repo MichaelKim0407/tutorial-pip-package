@@ -46,3 +46,41 @@ it is easy to confuse them as one integral service.
 However, a package for `pip` does not have to live on `pypi`,
 as we'll demonstrate in this tutorial,
 and apparently you can download packages from `pypi` without using `pip`.
+
+### Recommendations for this tutorial
+
+It is recommended to create a virtual environment and do everything in it
+for the purpose of this tutorial,
+so that you won't mess up your python installation.
+
+For Python 3.6+, you may use the `venv` module in the standard library.
+[HOWTO](https://docs.python.org/3/library/venv.html#creating-virtual-environments)
+
+For previous versions of Python, you may use [`virtualenv`](https://virtualenv.pypa.io/en/latest/).
+
+After creating the virtual environment,
+it might be a good idea to update the base packages we are going to use:
+
+```bash
+$ pip install -U pip setuptools
+```
+
+## Step 1: Create an importable module!
+
+Since `pip` is going to install modules that we can `import`,
+we need to have one ready first.
+Let's create `my_pip_package.py`:
+
+```python
+def hello_world():
+    print("This is my first pip package!")
+```
+
+Confirm that it can be imported properly:
+
+```bash
+$ python -c "import my_pip_package; my_pip_package.hello_world()"
+This is my first pip package!
+```
+
+Checkout the repo at this stage using the [`01-create-module`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/01-create-module) tag.
