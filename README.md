@@ -151,3 +151,41 @@ Note for `pipenv`:
 you should use `-e` flag so that `pipenv` will pick up dependencies in the lock file.
 
 Checkout the repo at this stage using the [`02-setup-py`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/02-setup-py) tag.
+
+## Step 3: Convert to multi-file package
+
+This step is optional, if you want to keep everything in one file.
+However, the setup is slightly different so we'll keep this as a separate step.
+
+First, turn the Python module into a package:
+
+```bash
+$ mkdir my_pip_package
+$ mv my_pip_package.py my_pip_package/__init__.py
+```
+
+Add another Python file in the package, e.g. `math.py`:
+
+```python
+def add(x, y):
+    return x + y
+```
+
+Change the following lines in `setup.py`:
+
+`from setuptools import setup` ->
+`from setuptools import setup, find_packages`
+
+`py_modules=['my_pip_package']` ->
+`packages=find_packages()`
+
+Test that everything works:
+
+```bash
+$ python -c "import my_pip_package; my_pip_package.hello_world()"
+This is my first pip package!
+$ python -c "from my_pip_package.math import add; print(add(1, 3))"
+4
+```
+
+Checkout the repo at this stage using the [`03-convert-package`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/03-convert-package) tag.
