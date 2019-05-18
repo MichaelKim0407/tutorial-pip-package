@@ -10,3 +10,6 @@ __pycache__/
 
 # System
 .DS_Store
+
+# Pip
+*.egg-info

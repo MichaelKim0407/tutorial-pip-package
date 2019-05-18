@@ -84,3 +84,70 @@ This is my first pip package!
 ```
 
 Checkout the repo at this stage using the [`01-create-module`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/01-create-module) tag.
+
+## Step 2: Create `setup.py`
+
+`setup.py` is used to tell `pip` how to install the package.
+You can find the full documentation [here](https://setuptools.readthedocs.io/en/latest/setuptools.html).
+
+For this tutorial we will have the most basic setup ready,
+and expand upon it.
+
+```python
+from setuptools import setup
+
+from my_pip_package import __version__
+
+setup(
+    name='my_pip_package',
+    version=__version__,
+
+    url='https://github.com/MichaelKim0407/tutorial-pip-package',
+    author='Michael Kim',
+    author_email='mkim0407@gmail.com',
+
+    py_modules=['my_pip_package'],
+)
+```
+
+Change url and author info for yourself.
+
+Add this to `my_pip_package.py`:
+
+```python
+__version__ = 'dev'
+```
+
+To confirm that `setup.py` works properly:
+
+```bash
+$ pip install -e .
+```
+
+It should install the package
+and create a folder called `my_pip_package.egg-info`.
+
+If you are using version control systems like `git`,
+make sure to ignore that folder.
+
+Now, you should be able to import the package outside of the folder:
+
+```bash
+$ cd ..
+$ python -c "import my_pip_package; my_pip_package.hello_world()"
+This is my first pip package!
+```
+
+If you have pushed your code to a git hosting service,
+you should be able to install it anywhere right now:
+
+```bash
+$ pip install git+git://github.com/MichaelKim0407/tutorial-pip-package.git#egg=my_pip_package
+```
+
+(replace with your own repo url)
+
+Note for `pipenv`:
+you should use `-e` flag so that `pipenv` will pick up dependencies in the lock file.
+
+Checkout the repo at this stage using the [`02-setup-py`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/02-setup-py) tag.
