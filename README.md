@@ -189,3 +189,49 @@ $ python -c "from my_pip_package.math import add; print(add(1, 3))"
 ```
 
 Checkout the repo at this stage using the [`03-convert-package`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/03-convert-package) tag.
+
+## Step 4: Adding dependencies
+
+If you want to use another `pip` library as dependency,
+you can specify it in `setup.py`.
+
+First, let's add the following code to `math.py`:
+
+```python
+from returns import returns
+
+
+@returns(int)
+def div_int(x, y):
+    return x / y
+```
+
+The `returns` decorator comes from the `returns-decorator` package
+(DISCLAIMER: created by the author of this tutorial),
+which is available on `pypi`.
+When writing production code you should totally use `//`,
+but for the sake of demonstration let's use the decorator for now.
+
+To specify `returns-decorator` as a dependency,
+add the following entry to `setup(...)` in `setup.py`:
+
+```python
+install_requires=[
+    'returns-decorator',
+],
+```
+
+Run `pip install -e .` again to pick up the new dependency.
+
+Now verify that it works:
+
+```bash
+$ python -c "from my_pip_package.math import div_int; print(div_int(3, 2))"
+1
+```
+
+You may also specify versions of your dependency,
+e.g. `returns-decorator>=1.1`.
+For the full spec, see [PEP 508](https://www.python.org/dev/peps/pep-0508/).
+
+Checkout the repo at this stage using the [`04-dependency`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/04-dependency) tag.

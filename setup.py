@@ -11,4 +11,8 @@ setup(
     author_email='mkim0407@gmail.com',
 
     packages=find_packages(),
+
+    install_requires=[
+        'returns-decorator',
+    ],
 )
