@@ -6,6 +6,10 @@ extra_math = [
     'returns-decorator',
 ]
 
+extra_bin = [
+    *extra_math,
+]
+
 extra_dev = [
     *extra_math,
 ]
@@ -23,6 +27,14 @@ setup(
     extras_require={
         'math': extra_math,
 
+        'bin': extra_bin,
+
         'dev': extra_dev,
+    },
+
+    entry_points={
+        'console_scripts': [
+            'add=my_pip_package.math:cmd_add',
+        ],
     },
 )

@@ -307,3 +307,74 @@ extras_require={
 Now we can just run `pip install -e .[dev]` whenever we want to setup a dev environment.
 
 Checkout the repo at this stage using the [`05-extra-dependency`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/05-extra-dependency) tag.
+
+## Step 6: Command line entries
+
+`pip` allows packages to create command line entries in the `bin/` folder.
+
+First, let's make a function that accepts command line arguments in `math.py`,
+and make the module callable:
+
+```python
+def cmd_add(args=None):
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('x', type=float)
+    parser.add_argument('y', type=float)
+    parsed_args = parser.parse_args(args)
+
+    print(add(parsed_args.x, parsed_args.y))
+
+
+if __name__ == '__main__':
+    cmd_add()
+```
+
+Test it out:
+
+```bash
+$ python my_pip_package/math.py 1.5 3
+4.5
+```
+
+Now, add the following entry to `setup(...)`:
+
+```python
+entry_points={
+    'console_scripts': [
+        'add=my_pip_package.math:cmd_add',
+    ],
+},
+```
+
+The syntax is `{cmd entry name}={module path}:{function name}`.
+
+Run `pip install -e .[dev]` again to create the command line entry.
+
+```bash
+$ add 1.6 4
+5.6
+```
+
+The `__name__ == '__main__'` part is not really needed,
+so let's remove it.
+
+Also, since the `add` command requires the `[math]` dependency,
+let's make it explicit for anyone wishing to use the command:
+
+```python
+extra_bin = [
+    *extra_math,
+]
+```
+
+and
+
+```python
+extra_requires = {
+    ...,
+    'bin': extra_bin,
+}
+```
+
+Checkout the repo at this stage using the [`06-command`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/06-command) tag.
