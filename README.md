@@ -235,3 +235,75 @@ e.g. `returns-decorator>=1.1`.
 For the full spec, see [PEP 508](https://www.python.org/dev/peps/pep-0508/).
 
 Checkout the repo at this stage using the [`04-dependency`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/04-dependency) tag.
+
+## Step 5: Adding optional (extra) dependencies
+
+Sometimes certain parts of your code require a specific dependency,
+but it's not necessarily useful for all use cases.
+
+One example would be the `sqlalchemy` library,
+which supports a variety of SQL dialects,
+but in most cases anyone using it would only be interested in one dialect.
+
+Installing all dependencies is both inefficient and messy,
+so it's better to let the user decide what exactly is needed.
+However, it would be cumbersome for the user to install the specific dependencies.
+This is where extra dependencies some in.
+
+For this tutorial, after the last step,
+let's pretend that we don't want to always install `returns-decorator` unless `math` is used.
+We can replace the `install_requires` with the following:
+
+```python
+extras_require={
+    'math': [
+        'returns-decorator',
+    ],
+},
+```
+
+Note the `s`: `install_requires` is singular but `extras_require` is plural.
+
+Now, we can install the extra dependency by appending `[math]` in the installation:
+
+```bash
+$ pip install -e .[math]
+```
+
+or
+
+```bash
+$ pip install git+git://github.com/MichaelKim0407/tutorial-pip-package.git#egg=my_pip_package[math]
+```
+
+However, we are not finished just yet -
+since we want to add more extra dependencies in the future,
+it's better to keep them organized.
+
+One good habit is to make a `[dev]` extra dependency,
+which includes all dependencies needed for local development.
+In `setup.py`:
+
+```python
+extra_math = [
+    'returns-decorator',
+]
+
+extra_dev = [
+    *extra_math,
+]
+```
+
+and in `setup(...)`:
+
+```python
+extras_require={
+    'math': extra_math,
+
+    'dev': extra_dev,
+},
+```
+
+Now we can just run `pip install -e .[dev]` whenever we want to setup a dev environment.
+
+Checkout the repo at this stage using the [`05-extra-dependency`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/05-extra-dependency) tag.
