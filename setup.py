@@ -27,6 +27,7 @@ extra_ci = [
 setup(
     name='my_pip_package',
     version=__version__,
+    description='A tutorial for creating pip packages.',
 
     url='https://github.com/MichaelKim0407/tutorial-pip-package',
     author='Michael Kim',
@@ -50,4 +51,11 @@ setup(
             'add=my_pip_package.math:cmd_add',
         ],
     },
+
+    classifiers=[
+        'Intended Audience :: Developers',
+
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+    ],
 )

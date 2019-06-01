@@ -469,3 +469,56 @@ The code to embed badges can be found on travis and coveralls.
 After the CI runs successfully, the badges will be updated.
 
 Checkout the repo at this stage using the [`08-ci`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/08-ci) tag.
+
+## Step 9: Releasing on pypi!
+
+At this point, your library can already be shared with the world,
+however it is not on pypi yet.
+
+To release on pypi, there are a few things we need to take care of.
+
+First, add some classifiers for your package in `setup()`.
+A full list of classifiers can be found [here](https://pypi.org/pypi?%3Aaction=list_classifiers).
+
+Next, change `__version__` to a standard version string, such as `1.0`.
+
+Next, change the name of your package, if you followed the tutorial thus far,
+since `my_pip_package` would be taken by me.
+Be creative!
+The `name` argument in `setup()` does not need to match the name of the python package,
+but it's better to keep them the same so that anyone that installs your library won't be confused.
+
+You may also want to add a `description` in `setup()`.
+
+Once everything is good, we can package the library:
+
+```bash
+$ python setup.py sdist
+```
+
+If should create a `.tar.gz` file under `dist/`.
+You can unzip the file to inspect its contents.
+
+Also, don't forget to add `dist/` to `.gitignore`.
+
+The file is now ready to be uploaded to `pypi`.
+Create an account on `pypi`, and store the credentials in `~/.pypirc`:
+
+```
+[pypi]
+username =
+password =
+```
+
+Finally, to upload the file:
+
+```bash
+$ twine upload dist/{packaged file}.tar.gz
+```
+
+Your package should now show up on `pypi` and installable using `pip install`.
+
+It would also be a good idea to create a release on GitHub,
+and drop the packaged file as an attachment.
+
+Checkout the repo at this stage using the [`09-release`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/09-release) tag.
