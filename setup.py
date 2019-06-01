@@ -19,6 +19,11 @@ extra_dev = [
     *extra_test,
 ]
 
+extra_ci = [
+    *extra_test,
+    'python-coveralls',
+]
+
 setup(
     name='my_pip_package',
     version=__version__,
@@ -36,6 +41,8 @@ setup(
 
         'test': extra_test,
         'dev': extra_dev,
+
+        'ci': extra_ci,
     },
 
     entry_points={

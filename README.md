@@ -1,5 +1,8 @@
 # TUTORIAL: How to create your own pip library
 
+[![Build Status](https://travis-ci.com/MichaelKim0407/tutorial-pip-package.svg?branch=master)](https://travis-ci.com/MichaelKim0407/tutorial-pip-package)
+[![Coverage Status](https://coveralls.io/repos/github/MichaelKim0407/tutorial-pip-package/badge.svg?branch=master)](https://coveralls.io/github/MichaelKim0407/tutorial-pip-package?branch=master)
+
 Author: Michael Kim <mkim0407@gmail.com>
 
 ## Overview
@@ -432,3 +435,37 @@ Lastly, don't forget to ignore the test output in `.gitignore`:
 ```
 
 Checkout the repo at this stage using the [`07-tests`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/07-tests) tag.
+
+## Step 8: Adding tests to CI
+
+While testing locally can catch a lot of problems already,
+running tests automatically is a further step on quality control,
+especially multiple developers are involved,
+and it also shows the world that your library is indeed working as intended.
+
+For GitHub repos,
+we'll be using [Travis CI](https://travis-ci.com) to run the CI tests.
+
+We'll be using [Coveralls](https://coveralls.io) for coverage reporting.
+(There is an alternative called [Codecov](https://codecov.io/),
+however [it has a pretty significant issue for Python](https://github.com/codecov/codecov-python/issues/136).)
+
+First, `coveralls` requires an extra dependency,
+so let's create an extra called `ci`:
+
+```python
+extra_ci = [
+    *extra_test,
+    'python-coveralls',
+]
+```
+
+Next, add the CI configuration, which should be called `.travis.yml`.
+Details on how to write it can be found [here](https://docs.travis-ci.com/).
+See code in repo for how we are doing it.
+
+Let's also add the badges to the top of our README file so everyone can see them immediately.
+The code to embed badges can be found on travis and coveralls.
+After the CI runs successfully, the badges will be updated.
+
+Checkout the repo at this stage using the [`08-ci`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/08-ci) tag.
