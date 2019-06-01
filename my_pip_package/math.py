@@ -17,4 +17,10 @@ def cmd_add(args=None):
     parser.add_argument('y', type=float)
     parsed_args = parser.parse_args(args)
 
-    print(add(parsed_args.x, parsed_args.y))
+    x = parsed_args.x
+    if int(x) == x:
+        x = int(x)
+    y = parsed_args.y
+    if int(y) == y:
+        y = int(y)
+    print(add(x, y))

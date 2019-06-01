@@ -13,3 +13,7 @@ __pycache__/
 
 # Pip
 *.egg-info
+
+# Testing
+.pytest_cache/
+.coverage

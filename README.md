@@ -378,3 +378,57 @@ extra_requires = {
 ```
 
 Checkout the repo at this stage using the [`06-command`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/06-command) tag.
+
+## Step 7: Adding tests!
+
+If you are developing a package you should probably include tests from the beginning,
+but since it's a different step in the setup we'll do it now.
+
+For this tutorial, we'll be using `pytest` for testing and `pytest-cov` for coverage.
+
+Lets include the packages in the extras:
+
+```python
+extra_test = [
+    *extra_math,
+    'pytest>=4',
+    'pytest-cov>=2',
+]
+```
+
+and update the `[dev]` extra dependency to include testing:
+
+```python
+extra_dev = [
+    *extra_test,
+]
+```
+
+Run `pip install -e .[dev]` again to pick up the new dependencies.
+
+For the sake of length, we'll add to the repo without writing them down here.
+Run `pytest` to test the package.
+
+Once everything's passed, we can move on for coverage test.
+
+Create `.coveragerc`:
+
+```
+[run]
+source = my_pip_package
+```
+
+And run `pytest --cov` to see coverage.
+`--cov-report` can also be specified to provide formatting for coverage report.
+My favorite is `pytest --cov --cov-report term-missing:skip-covered`,
+which lists all the line numbers that are not covered by tests,
+while hiding all files that have been completely covered.
+
+Lastly, don't forget to ignore the test output in `.gitignore`:
+
+```
+.pytest_cache/
+.coverage
+```
+
+Checkout the repo at this stage using the [`07-tests`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/07-tests) tag.
