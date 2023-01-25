@@ -436,6 +436,9 @@ Lastly, don't forget to ignore the test output in `.gitignore`:
 
 Checkout the repo at this stage using the [`07-tests`](https://github.com/MichaelKim0407/tutorial-pip-package/tree/07-tests) tag.
 
+**UPDATE:** You should also instruct `find_packages` to ignore the `tests` folder by specifying `find_packages(exclude=['tests', 'tests.*'])`.
+I am not going to go back and rewrite Git history, but this is included in latest `setup.py`.
+
 ## Step 8: Adding tests to CI
 
 While testing locally can catch a lot of problems already,

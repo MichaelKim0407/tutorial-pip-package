@@ -33,7 +33,7 @@ setup(
     author='Michael Kim',
     author_email='mkim0407@gmail.com',
 
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests', 'tests.*']),
 
     extras_require={
         'math': extra_math,
