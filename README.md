@@ -5,6 +5,8 @@
 
 Author: Michael Kim <mkim0407@gmail.com>
 
+Update: I have made a project template for Dockerized development [here](https://github.com/MichaelKim0407/pip-package-template-docker).
+
 ## Overview
 
 The idea of `pip` roots back to the `import` keyword in Python,
